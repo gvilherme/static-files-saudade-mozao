@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <h1 class="text-center">Token de Saudade</h1>
-  <form class="mt-4" (ngSubmit)="onSubmit()">
+  <form class="mt-4" (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div class="form-group">
       <label for="username">Nome de Usuário</label>
       <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>

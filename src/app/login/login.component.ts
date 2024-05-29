@@ -12,7 +12,7 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  onSubmit() {
+  onSubmit() {    
     // Simulação de login
     this.router.navigate(['/home'], { state: { username: this.username } });
   }

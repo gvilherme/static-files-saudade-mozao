@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  username: string = '';
+  username: string = 'aa';
   pinkTokens: number = 0;
   blueTokens: number = 0;
   tokenAmount: number = 0;
@@ -16,11 +16,14 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const state = this.router.getCurrentNavigation()?.extras.state;
-    if (state && state['username']) {
-      this.username = state['username'];
+    console.debug("aqui")
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { username: string };
+    if (state && state.username) {
+      this.username = state.username;
     } else {
-      this.router.navigate(['/']);
+      // TODO adicionar validação real
+      // this.router.navigate(['/']);
     }
   }
 
