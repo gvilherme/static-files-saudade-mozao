@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <h1 class="text-center">Token de Saudade</h1>
+  <form class="mt-4" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Nome de Usuário</label>
+      <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Cadastrar/Entrar</button>
+  </form>
+</div>

@@ -1,1 +1,38 @@
-/* Add application styles & imports to this file! */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .hourglass {
+    position: relative;
+    width: 100px;
+    height: 200px;
+    margin: 20px auto;
+    border: 2px solid #000;
+    border-radius: 50% 50% 0 0;
+    overflow: hidden;
+  }
+  
+  .token-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: height 0.5s;
+  }
+  
+  .pink-bar {
+    background: pink;
+    height: 0;
+  }
+  
+  .blue-bar {
+    background: lightblue;
+    height: 0;
+  }
+  
+  .pink-text {
+    color: pink;
+  }
+  
+  .blue-text {
+    color: lightblue;
+  }

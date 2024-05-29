@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <h1 class="text-center">Bem-vindo, {{ username }}</h1>
+    <div class="hourglass mt-4">
+      <div class="token-bar pink-bar"></div>
+      <div class="token-bar blue-bar"></div>
+    </div>
+    <div class="token-info mt-4">
+      <p><span class="pink-text">Tokens de Saudade (Rosa): </span><span id="pink-tokens">{{ pinkTokens }}</span></p>
+      <p><span class="blue-text">Tokens de Saudade (Azul): </span><span id="blue-tokens">{{ blueTokens }}</span></p>
+    </div>
+    <form class="mt-4" (ngSubmit)="addToken()">
+      <div class="form-group">
+        <input type="number" class="form-control" id="token-amount" [(ngModel)]="tokenAmount" name="tokenAmount" placeholder="Valor em Dólares" required>
+      </div>
+      <div class="form-group">
+        <select class="form-control" id="token-color" [(ngModel)]="tokenColor" name="tokenColor">
+          <option value="pink">Rosa</option>
+          <option value="blue">Azul</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Adicionar Token</button>
+    </form>
+  </div>
+  
