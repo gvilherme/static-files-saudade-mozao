@@ -7,31 +7,45 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  username: string = 'aa';
-  pinkTokens: number = 0;
-  blueTokens: number = 0;
+  username: string = '';
+  rosaTokens: number = 0;
+  azulTokens: number = 0;
   tokenAmount: number = 0;
-  tokenColor: string = 'pink';
+  tokenColor: string = 'rosa';
+  rosaPercent: number = 0;
+  azulPercent: number = 0;
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    console.debug("aqui")
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { username: string };
     if (state && state.username) {
       this.username = state.username;
     } else {
-      // TODO adicionar validação real
       // this.router.navigate(['/']);
     }
+    this.updatePercents();
   }
 
   addToken() {
-    if (this.tokenColor === 'pink') {
-      this.pinkTokens += this.tokenAmount;
-    } else if (this.tokenColor === 'blue') {
-      this.blueTokens += this.tokenAmount;
+    if (this.tokenColor === 'rosa') {
+      this.rosaTokens += this.tokenAmount;
+    } else if (this.tokenColor === 'azul') {
+      this.azulTokens += this.tokenAmount;
+    }
+    this.updatePercents();
+  }
+
+  updatePercents() {
+    const totalTokens = this.rosaTokens + this.azulTokens;
+    const maxPercent = 75;
+    if (totalTokens > 0) {
+      this.rosaPercent = (this.rosaTokens / totalTokens) * maxPercent;
+      this.azulPercent = (this.azulTokens / totalTokens) * maxPercent;
+    } else {
+      this.rosaPercent = 0;
+      this.azulPercent = 0;
     }
   }
 }

@@ -1,0 +1,71 @@
+.ampulheta {
+    position: relative;
+    width: 100px;
+    height: 200px;
+    margin: 20px auto;
+    border: 2px solid #000;
+    border-radius: 50% 50% 50% 50% / 10% 10% 90% 90%; /* Ajusta o formato da ampulheta */
+    background: linear-gradient(to bottom, #f0e68c 50%, #ffffff 50%);
+    overflow: hidden;
+  }
+  
+  .areia {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: height 0.5s;
+    border-radius: 0 0 50% 50%;
+  }
+  
+  .areiarosa {
+    background: pink;
+    height: 0;
+  }
+  
+  .areiaazul {
+    background: lightblue;
+    height: 0;
+  }
+  
+  .rosa-text {
+    color: pink;
+  }
+  
+  .azul-text {
+    color: lightblue;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container {
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.9); /* Fundo branco com opacidade */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
