@@ -28,7 +28,7 @@ export class SignupComponent {
   }
 
   signUp() {
-    this.authService.signUp(this.name, this.password, this.email, this.gender, this.name)
+    this.authService.signUp(this.name, this.password, this.email, this.gender, this.full_name)
       .then((result) => {
         console.log('Signup successful', result);
         this.errorMessage = '';

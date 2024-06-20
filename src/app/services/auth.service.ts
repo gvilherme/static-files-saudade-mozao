@@ -1,6 +1,6 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUserPool, CognitoUserAttribute, AuthenticationDetails, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
 
 const poolData = {
   UserPoolId: 'us-east-1_FG3XUWFnC', // Substitua pelo ID do seu User Pool
@@ -13,6 +13,8 @@ const userPool = new CognitoUserPool(poolData);
   providedIn: 'root'
 })
 export class AuthService {
+
+  cognitoUser: CognitoUser | null = null;
 
   constructor() { }
 
@@ -27,16 +29,56 @@ export class AuthService {
       Pool: userPool
     };
 
-    const cognitoUser = new CognitoUser(userData);
+    this.cognitoUser = new CognitoUser(userData);
 
     return new Promise((resolve, reject) => {
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: (result) => {
+      this.cognitoUser!.authenticateUser(authenticationDetails, {
+        onSuccess: (result: CognitoUserSession) => {
           resolve(result);
         },
         onFailure: (err) => {
           reject(err);
         },
+        mfaRequired: (challengeName, challengeParameters) => {
+          resolve({ mfaRequired: true });
+        }
+      });
+    });
+  }
+
+  confirmMFA(code: string): Promise<any> {
+    if (!this.cognitoUser) {
+      return Promise.reject('User not authenticated');
+    }
+
+    return new Promise((resolve, reject) => {
+      this.cognitoUser!.sendMFACode(code, {
+        onSuccess: (result: CognitoUserSession) => {
+          resolve(result);
+        },
+        onFailure: (err) => {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  getUserAttributes(): Promise<{ [key: string]: string }> {
+    if (!this.cognitoUser) {
+      return Promise.reject('User not authenticated');
+    }
+
+    return new Promise((resolve, reject) => {
+      this.cognitoUser!.getUserAttributes((err, attributes) => {
+        if (err) {
+          reject(err);
+        } else {
+          const userAttributes: { [key: string]: string } = {};
+          attributes!.forEach(attribute => {
+            userAttributes[attribute.Name] = attribute.Value;
+          });
+          resolve(userAttributes);
+        }
       });
     });
   }
@@ -66,7 +108,7 @@ export class AuthService {
 
     const dataFormattedName = {
       Name: 'name',
-      Value: 'formattedName'
+      Value: fullName
     };
 
     const attributeEmail = new CognitoUserAttribute(dataEmail);

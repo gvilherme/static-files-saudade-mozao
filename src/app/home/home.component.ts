@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserDataService } from '../services/user-data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  username: string = '';
+  full_name: string;
+  gender: string;
   rosaTokens: number = 0;
   azulTokens: number = 0;
   tokenAmount: number = 0;
@@ -15,15 +17,15 @@ export class HomeComponent implements OnInit {
   rosaPercent: number = 0;
   azulPercent: number = 0;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userDataService: UserDataService) {
+    const userData = this.userDataService.getUserData();
+    this.full_name = userData.username;
+    this.gender = userData.gender;
+  }
 
   ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { username: string };
-    if (state && state.username) {
-      this.username = state.username;
-    } else {
-      // this.router.navigate(['/']);
+    if (this.gender == "Male") {
+      this.tokenColor = "azul"
     }
     this.updatePercents();
   }
