@@ -41,7 +41,7 @@ export class AuthService {
     });
   }
 
-  signUp(username: string, password: string, email: string): Promise<any> {
+  signUp(username: string, password: string, email: string, gender: string,  fullName: string): Promise<any> {
     const attributeList: CognitoUserAttribute[] = [];
 
     const dataEmail = {
@@ -49,11 +49,58 @@ export class AuthService {
       Value: email
     };
 
+    const dataGender = {
+      Name: 'gender',
+      Value: gender
+    };
+
+    const dataFullName = {
+      Name: 'custom:full_name',
+      Value: fullName
+    };
+
+    const dataPhoneNumber = {
+      Name: 'phone_number',
+      Value: '+14325551212'
+    };
+
+    const dataFormattedName = {
+      Name: 'name',
+      Value: 'formattedName'
+    };
+
     const attributeEmail = new CognitoUserAttribute(dataEmail);
+    const attributeGender = new CognitoUserAttribute(dataGender);
+    const attributeFullName = new CognitoUserAttribute(dataFullName);
+    const attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
+    const attributeFormattedName = new CognitoUserAttribute(dataFormattedName);
     attributeList.push(attributeEmail);
+    attributeList.push(attributeGender);
+    attributeList.push(attributeFullName);
+    attributeList.push(attributePhoneNumber);
+    attributeList.push(attributeFormattedName);
 
     return new Promise((resolve, reject) => {
       userPool.signUp(username, password, attributeList, [], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    });
+  }
+
+  confirmSignUp(username: string, code: string): Promise<any> {
+    const userData = {
+      Username: username,
+      Pool: userPool
+    };
+
+    const cognitoUser = new CognitoUser(userData);
+
+    return new Promise((resolve, reject) => {
+      cognitoUser.confirmRegistration(code, true, (err, result) => {
         if (err) {
           reject(err);
         } else {

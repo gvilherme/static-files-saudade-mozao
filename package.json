@@ -18,7 +18,9 @@
     "@aws-amplify/cli": "latest",
     "@aws-amplify/ui-angular": "latest",
     "amazon-cognito-identity-js": "^6.3.12",
-    "bootstrap": "^5.1.3",
+    "bootstrap": "^5.3.3",
+    "buffer": "^6.0.3",
+    "global": "^4.4.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.14.0"
