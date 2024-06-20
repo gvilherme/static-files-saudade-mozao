@@ -30,8 +30,14 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "outputPath": "dist/demo",
-            "scripts": [],
-            "styles": ["src/global_styles.css"],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
+            "styles": ["src/global_styles.css", "node_modules/bootstrap/dist/css/bootstrap.min.css"],
+            "polyfills": [
+              "zone.js",
+              "src/polyfills.ts"
+            ],
             "tsConfig": "tsconfig.app.json"
           }
         },
