@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { HeartComponent } from './home/heart/heart.component';
+import { HttpClientModule  } from '@angular/common/http';
+import { TokenService } from './services/token.service'; // Importação do serviço
 
 @NgModule({
   declarations: [
@@ -19,9 +21,10 @@ import { HeartComponent } from './home/heart/heart.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

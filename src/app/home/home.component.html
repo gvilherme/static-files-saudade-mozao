@@ -11,4 +11,12 @@
     </div>
     <button type="submit" class="btn btn-primary btn-block mt-3">Adicionar Token</button>
   </form>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="paymentPending" class="text-center mt-4">
+    <h3>Pagamento Pendente</h3>
+    <img *ngIf="qrCodeBase64" [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code de Pagamento">
+  </div>
 </div>
