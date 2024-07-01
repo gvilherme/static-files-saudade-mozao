@@ -1,22 +1,43 @@
 <div class="container mt-5">
-  <h1 class="text-center">Bem-vindo, {{ full_name }}</h1>
-  <app-heart [rosaTokens]="rosaTokens" [azulTokens]="azulTokens" class="mx-auto mt-4"></app-heart>
-  <div class="token-info mt-4 text-center">
-    <p><span class="rosa-text">Tokens de Saudade (Rosa): </span><span id="rosa-tokens">{{ rosaTokens }}</span></p>
-    <p><span class="azul-text">Tokens de Saudade (Azul): </span><span id="azul-tokens">{{ azulTokens }}</span></p>
-  </div>
-  <form class="mt-4 text-center" (ngSubmit)="addToken()">
-    <div class="form-group">
-      <input type="number" class="form-control" id="token-amount" [(ngModel)]="tokenAmount" name="tokenAmount" placeholder="Valor em Dólares" required>
+  <div *ngIf="!paymentPending && !paymentConfirmed">
+    <h1 class="text-center">Bem-vindo, {{ full_name }}</h1>
+    <app-heart [rosaTokens]="rosaTokens" [azulTokens]="azulTokens" class="mx-auto mt-4"></app-heart>
+    <div class="token-info mt-4 text-center">
+      <p><span class="rosa-text">Tokens de Saudade (Rosa): </span><span id="rosa-tokens">{{ rosaTokens }}</span></p>
+      <p><span class="azul-text">Tokens de Saudade (Azul): </span><span id="azul-tokens">{{ azulTokens }}</span></p>
     </div>
-    <button type="submit" class="btn btn-primary btn-block mt-3">Adicionar Token</button>
-  </form>
+    <form class="mt-4 text-center" (ngSubmit)="addToken()">
+      <div class="form-group">
+        <input type="number" class="form-control" id="token-amount" [(ngModel)]="tokenAmount" name="tokenAmount"
+          placeholder="Valor em Dólares" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block mt-3">Adicionar Token</button>
+    </form>
+  </div>
   <div *ngIf="errorMessage" class="alert alert-danger mt-3">
     {{ errorMessage }}
   </div>
 
   <div *ngIf="paymentPending" class="text-center mt-4">
     <h3>Pagamento Pendente</h3>
-    <img *ngIf="qrCodeBase64" [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code de Pagamento">
+    <div class="qr-container mx-auto p-3">
+      <div class="qr-code-container mx-auto">
+        <img *ngIf="qrCodeBase64" [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code de Pagamento"
+          class="img-fluid">
+      </div>
+      <p *ngIf="qrCodeBase64" class="mt-2 qr-code-text">{{ qrCode }}</p>
+      <button class="btn btn-secondary mt-2" (click)="copyQrCode()">
+        <i class="bi bi-clipboard"></i> Copiar Código
+      </button>
+      <div class="spinner-border text-primary mt-2" role="status" *ngIf="paymentPending">
+        <span class="sr-only">Aguardando Confirmação...</span>
+      </div>
+    </div>
   </div>
+
+  <div *ngIf="paymentConfirmed" class="text-center mt-4">
+    <h3>Pagamento Confirmado!</h3>
+    <p class="mt-3">Obrigado pelo pagamento.</p>
+  </div>
+
 </div>

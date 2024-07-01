@@ -63,7 +63,7 @@ export class LoginComponent {
     this.authService.getUserAttributes()
       .then((attributes) => {
         console.log('User attributes', attributes);
-        this.userDataService.setUserData({ username: attributes['name'], gender: attributes['gender'] });
+        this.userDataService.setUserData({ username: attributes['name'], gender: attributes['gender'], email: attributes['email'] });
         this.router.navigate(['/home']);
       })
       .catch((err) => {
