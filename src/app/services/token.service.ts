@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TokenService {
-  private apiUrl = 'https://gcsl1e6oee.execute-api.us-east-1.amazonaws.com/test/api';  // Substitua pela URL do seu backend
+  private apiUrl = 'https://gcsl1e6oee.execute-api.us-east-1.amazonaws.com/prod/api';  // Substitua pela URL do seu backend
 
   constructor(private http: HttpClient) { }
 
