@@ -29,8 +29,9 @@
       <button class="btn btn-secondary mt-2" (click)="copyQrCode()">
         <i class="bi bi-clipboard"></i> Copiar Código
       </button>
-      <div class="spinner-border text-primary mt-2" role="status" *ngIf="paymentPending">
-        <span class="sr-only">Aguardando Confirmação...</span>
+      <div class="spinner-container mt-2">
+        <div class="spinner"></div>
+        <p>Aguardando confirmação...</p>
       </div>
     </div>
   </div>
