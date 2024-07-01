@@ -11,16 +11,16 @@ export class TokenService {
 
   constructor(private http: HttpClient) { }
 
-  createToken(amount: number, color: string): Observable<any> {
-    const body = { amount, color };
-    return this.http.post(`${this.apiUrl}/tokens`, body)
+  createToken(amount: string, gender: string, full_name:string, email:string): Observable<any> {
+    const body = { amount, gender, full_name };
+    return this.http.post(`${this.apiUrl}/depositar/${email}/pix`, body)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  checkPaymentStatus(tokenId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/tokens/${tokenId}/status`)
+  checkPaymentStatus(tokenId: string, email:string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/depositar/${email}/pix/${tokenId}/status`)
       .pipe(
         catchError(this.handleError)
       );

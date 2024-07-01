@@ -22,18 +22,19 @@ export class HomeComponent implements OnInit {
   qrCodeBase64: string = '';
   paymentPending: boolean = false;
   errorMessage: string = '';
+  email: string = '';
 
   constructor(private router: Router, private userDataService: UserDataService, private tokenService: TokenService) {
     const userData = this.userDataService.getUserData();
     this.full_name = userData.username;
     this.gender = userData.gender;
+    this.email = userData.email;
   }
 
   ngOnInit(): void {
     if (this.gender == "Male") {
       this.tokenColor = "azul"
     }
-    this.updatePercents();
     this.tokenService.getTokens("guilhermerodrigues890@gmail.com").subscribe(
       response => {
         this.azulTokens = response.amount
@@ -50,11 +51,12 @@ export class HomeComponent implements OnInit {
         this.errorMessage = error;
       }
     )
+    this.updatePercents();
   }
 
   addToken() {
     this.errorMessage = '';  // Clear previous errors
-    this.tokenService.createToken(this.tokenAmount, this.tokenColor).subscribe(
+    this.tokenService.createToken(this.tokenAmount.toFixed(2), this.gender, this.full_name, this.email).subscribe(
       response => {
         this.qrCodeBase64 = response.qrCodeBase64;
         const tokenId = response.tokenId;
@@ -69,7 +71,7 @@ export class HomeComponent implements OnInit {
 
   waitForPaymentConfirmation(tokenId: string) {
     interval(5000).pipe(
-      switchMap(() => this.tokenService.checkPaymentStatus(tokenId))
+      switchMap(() => this.tokenService.checkPaymentStatus(tokenId, this.email))
     ).subscribe(
       response => {
         if (response.status === 'confirmed') {
